@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     //Determines speed
     [SerializeField]
     private float _speed = 5.0f;
+    public GameObject _laserPrefab;
    
 
     // Start is called before the first frame update
@@ -28,8 +29,8 @@ public class Player : MonoBehaviour
         transform.Translate(Vector3.right * hInput * _speed * Time.deltaTime);
         transform.Translate(Vector3.up * vInput * _speed * Time.deltaTime);
 
-        //if playerpos on x is greater than 9 or less than -9, then it is set to its edge
-        if(transform.position.x < -11.3f || transform.position.x > 11.3f)
+        //To prevent objects from leaving screen (no wrap), use Mathf.Clamp()
+        if (transform.position.x < -11.3f || transform.position.x > 11.3f)
         {
             transform.position = new Vector3(-1*transform.position.x, transform.position.y, transform.position.z);
         }
@@ -37,6 +38,12 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, -1 * transform.position.y, transform.position.z);
         }
-        //To prevent objects from leaving screen (no wrap), use Mathf.Clamp()
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        }
+
+
     }
     }
