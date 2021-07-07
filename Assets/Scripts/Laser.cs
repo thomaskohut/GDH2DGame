@@ -5,7 +5,10 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 10f;
+    private float _speed = 10f;
+
+    //[SerializeField]
+    //private int _divisor = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +18,11 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        //The laser moves in a sin wave
+        //Vector3 mt = new Vector3(Mathf.Sin(Time.fixedTime), _speed, 0);
+        //transform.Translate(mt * Time.deltaTime);
+
+        transform.Translate(Vector3.up * _speed * Time.deltaTime);
 
         if(transform.position.y > 7.55)
         {
