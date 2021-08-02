@@ -13,14 +13,14 @@ public class Player : MonoBehaviour
     private float _rof = 0.2f;
     private float _cd = 0.0f;
     public GameObject _laserPrefab;
+    [SerializeField]
+    private int _health = 5;
 
-    // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         Movement();
@@ -60,8 +60,17 @@ public class Player : MonoBehaviour
     void Fire()
     {
         _cd = Time.time + _rof;
-        Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+        Instantiate(_laserPrefab,
+            new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        _health--;
+
+        if (_health < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
-
-
