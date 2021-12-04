@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         //if collides with player, destroys us and damages player
         //if collides with laser, destroy us.
