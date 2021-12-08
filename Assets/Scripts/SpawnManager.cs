@@ -10,17 +10,15 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyprefab;
     [SerializeField]
     private GameObject _playerprefab;
+    [SerializeField]
+    private GameObject _tShotPowerup;
 
     private bool _spActive = false;
 
     void Start()
     {
         StartCoroutine(SpawnEnemy());
-    }
-
-    void Update()
-    {
-
+        StartCoroutine(SpawnPowerUp());
     }
 
     public void OnDeath()
@@ -37,6 +35,16 @@ public class SpawnManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemyprefab, spawnPos, Quaternion.identity);
             newEnemy.transform.parent = _eContainer.transform;
             yield return new WaitForSeconds(5.0f);
+        }
+    }
+
+    IEnumerator SpawnPowerUp()
+    {
+        while (!_spActive)
+        {
+            Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
+            GameObject newPUp = Instantiate(_tShotPowerup, spawnPos, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(4,9));
         }
     }
 }

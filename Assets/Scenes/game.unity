@@ -158,7 +158,9 @@ MonoBehaviour:
   _offset: 1
   _rof: 0.5
   _laserPrefab: {fileID: 857764008937305347, guid: 83b7d12c1b82c704dba17d4d0e1767f7, type: 3}
+  _tShotPrefab: {fileID: 8492179280914843513, guid: 3ae83780f1e187c4f80ad89a18d2d42f, type: 3}
   _health: 5
+  _tShotActive: 0
 --- !u!212 &38358109
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -364,7 +366,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _eContainer: {fileID: 611838510}
   _enemyprefab: {fileID: 8256731468335505449, guid: dda9d20ae73910c4eb51d92cef380e3a, type: 3}
-  _playerprefab: {fileID: 0}
+  _playerprefab: {fileID: 38358107}
+  _tShotPowerup: {fileID: 6575946860442517288, guid: 2832c354c2bd28444837da47b7b5251f, type: 3}
 --- !u!4 &611838512
 Transform:
   m_ObjectHideFlags: 0

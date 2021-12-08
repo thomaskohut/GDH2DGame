@@ -12,9 +12,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _rof = 0.2f;
     private float _cd = 0.0f;
-    public GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _tShotPrefab;
     [SerializeField]
     private int _health = 5;
+
+    [SerializeField]
+    private bool _tShotActive = false;
 
     void Start()
     {
@@ -26,7 +32,7 @@ public class Player : MonoBehaviour
         Movement();
         Wrap();
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _cd)
-        {
+        { 
             Fire();
         }
     }
@@ -60,8 +66,16 @@ public class Player : MonoBehaviour
     void Fire()
     {
         _cd = Time.time + _rof;
-        Instantiate(_laserPrefab,
-            new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+        
+        if (_tShotActive)
+        {
+            Instantiate(_tShotPrefab, 
+                new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+        } else
+        {
+            Instantiate(_laserPrefab,
+                new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+        }
     }
 
     public void Damage()
@@ -71,6 +85,24 @@ public class Player : MonoBehaviour
         if (_health < 1)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    public void TShotActive()
+    {
+        if(!_tShotActive)
+        {
+            _tShotActive = true;
+            StartCoroutine(TShotPowerDown());
+        }
+    }
+
+    IEnumerator TShotPowerDown()
+    {
+        while(_tShotActive)
+        { 
+            yield return new WaitForSeconds(5.0f);
+            _tShotActive = false;
         }
     }
 }
