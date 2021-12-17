@@ -20,8 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shield;
     [SerializeField]
-    private int _health = 5;
-    
+    private int _health = 3;
+    private int _score = 0;
+
+    private UIManager _ui;
 
     [SerializeField]
     private bool _tShotActive = false;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     void Update()
@@ -38,7 +41,7 @@ public class Player : MonoBehaviour
         Movement();
         Wrap();
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _cd)
-        { 
+        {
             Fire();
         }
     }
@@ -48,8 +51,8 @@ public class Player : MonoBehaviour
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
 
-            transform.Translate(Vector3.right * hInput * _speed * Time.deltaTime);
-            transform.Translate(Vector3.up * vInput * _speed * Time.deltaTime);
+        transform.Translate(Vector3.right * hInput * _speed * Time.deltaTime);
+        transform.Translate(Vector3.up * vInput * _speed * Time.deltaTime);
 
         //1 line version of below 2 lines
         //transform.Translate(new Vector3(hInput, vInput, 0)* _speed * Time.deltaTime);
@@ -72,10 +75,10 @@ public class Player : MonoBehaviour
     void Fire()
     {
         _cd = Time.time + _rof;
-        
+
         if (_tShotActive)
         {
-            Instantiate(_tShotPrefab, 
+            Instantiate(_tShotPrefab,
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
         } else
         {
@@ -92,8 +95,9 @@ public class Player : MonoBehaviour
             _shield.SetActive(false);
             return;
         }
-
+      
         _health--;
+        _ui.UpdateLives(_health);
 
         if (_health < 1)
         {
@@ -103,7 +107,7 @@ public class Player : MonoBehaviour
 
     public void TShotActive()
     {
-        if(!_tShotActive)
+        if (!_tShotActive)
         {
             _tShotActive = true;
             StartCoroutine(TShotPowerDown());
@@ -112,8 +116,8 @@ public class Player : MonoBehaviour
 
     IEnumerator TShotPowerDown()
     {
-        while(_tShotActive)
-        { 
+        while (_tShotActive)
+        {
             yield return new WaitForSeconds(5.0f);
             _tShotActive = false;
         }
@@ -121,7 +125,7 @@ public class Player : MonoBehaviour
 
     public void SpeedBoostActive()
     {
-        if(!_speedBoostActive)
+        if (!_speedBoostActive)
         {
             _speedBoostActive = true;
             _speed *= _speedMult;
@@ -131,9 +135,9 @@ public class Player : MonoBehaviour
 
     IEnumerator SpeedBoostPDown()
     {
-        while(_speedBoostActive)
+        while (_speedBoostActive)
         {
-            yield return new WaitForSeconds(5.0f);           
+            yield return new WaitForSeconds(5.0f);
             _speedBoostActive = false;
             _speed /= _speedMult;
         }
@@ -141,11 +145,16 @@ public class Player : MonoBehaviour
 
     public void ShieldActive()
     {
-        if(!_shieldActive)
+        if (!_shieldActive)
         {
             _shieldActive = true;
             _shield.SetActive(true);
         }
     }
 
+    public void AddScore()
+    {
+        _score += 10;
+        _ui.UpdateScore(_score);
+    }
 }
