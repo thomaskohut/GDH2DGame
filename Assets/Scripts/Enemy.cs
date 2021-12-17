@@ -7,11 +7,23 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _spd = 4.0f;
     private Player _plr;
+    private Animator _anim;
 
     // Start is called before the first frame update
     void Start()
     {
         _plr = GameObject.Find("Player").GetComponent<Player>();
+        _anim = GetComponent<Animator>();
+
+        if (_plr == null)
+        {
+            Debug.LogError("Player not found");
+        }
+
+        if(_anim == null)
+        {
+            Debug.LogError("Animator not found");
+        }
     }
 
     // Update is called once per frame
@@ -31,10 +43,10 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //if collides with player, destroys us and damages player
-        //if collides with laser, destroy us.
-
-        Destroy(this.gameObject);
+        _anim.SetTrigger("OnEnemyDeath");
+        _spd = 0f;
+        GetComponent<Collider2D>().enabled = false;
+        Destroy(this.gameObject, 2.8f);
 
         if (other.tag == "Player")
         {

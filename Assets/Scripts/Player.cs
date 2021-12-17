@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _rof = 0.2f;
     private float _cd = 0.0f;
+
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shield;
     [SerializeField]
+
     private int _health = 3;
     private int _score = 0;
 
