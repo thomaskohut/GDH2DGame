@@ -37,6 +37,7 @@ public class Powerups : MonoBehaviour
                         plr.SpeedBoostActive();
                         break;
                     case 2:
+                        plr.ShieldActive();
                         break;
                     default:
                         Debug.LogError("Poweup not collected.");

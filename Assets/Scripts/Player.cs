@@ -18,11 +18,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tShotPrefab;
     [SerializeField]
+    private GameObject _shield;
+    [SerializeField]
     private int _health = 5;
+    
 
     [SerializeField]
     private bool _tShotActive = false;
     private bool _speedBoostActive = false;
+    private bool _shieldActive = false;
 
     void Start()
     {
@@ -82,6 +86,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_shieldActive)
+        {
+            _shieldActive = false;
+            _shield.SetActive(false);
+            return;
+        }
+
         _health--;
 
         if (_health < 1)
@@ -127,4 +138,14 @@ public class Player : MonoBehaviour
             _speed /= _speedMult;
         }
     }
+
+    public void ShieldActive()
+    {
+        if(!_shieldActive)
+        {
+            _shieldActive = true;
+            _shield.SetActive(true);
+        }
+    }
+
 }
