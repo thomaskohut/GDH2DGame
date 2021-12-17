@@ -9,14 +9,11 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyprefab;
     [SerializeField]
-    private GameObject _playerprefab;
-    [SerializeField]
     private GameObject[] _Powerup;
-
 
     private bool _spActive = false;
 
-    void Start()
+    public void StartSpawn()
     {
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnPowerUp());
@@ -30,6 +27,7 @@ public class SpawnManager : MonoBehaviour
     //Spawns enemy every 5 seconds
     IEnumerator SpawnEnemy()
     {
+        yield return new WaitForSeconds(2.0f);
         while (!_spActive)
         {
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
@@ -41,8 +39,9 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerUp()
     {
+        yield return new WaitForSeconds(2.0f);
         while (!_spActive)
-        {
+        {           
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
             GameObject newPUp = Instantiate(_Powerup[Random.Range(0,3)], spawnPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(4,9));
