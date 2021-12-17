@@ -27,19 +27,19 @@ public class SpawnManager : MonoBehaviour
     //Spawns enemy every 5 seconds
     IEnumerator SpawnEnemy()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         while (!_spActive)
         {
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
             GameObject newEnemy = Instantiate(_enemyprefab, spawnPos, Quaternion.identity);
             newEnemy.transform.parent = _eContainer.transform;
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(3.0f);
         }
     }
 
     IEnumerator SpawnPowerUp()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         while (!_spActive)
         {           
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);

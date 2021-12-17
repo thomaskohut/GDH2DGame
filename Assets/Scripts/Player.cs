@@ -21,7 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shield;
     [SerializeField]
+    private GameObject[] _engines;
 
+    [SerializeField]
     private int _health = 3;
     private int _score = 0;
 
@@ -101,7 +103,18 @@ public class Player : MonoBehaviour
         _health--;
         _ui.UpdateLives(_health);
 
-        if (_health < 1)
+        if (!_engines[0].activeInHierarchy && !_engines[1].activeInHierarchy)
+        {
+            _engines[Random.Range(0, 2)].SetActive(true);
+        } else if (_engines[0].activeInHierarchy)
+        {
+            _engines[1].SetActive(true);
+        } else if (_engines[1].activeInHierarchy)
+        {
+            _engines[0].SetActive(true);
+        }
+
+            if (_health <= 0)
         {
             Destroy(this.gameObject);
         }
