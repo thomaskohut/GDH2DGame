@@ -15,10 +15,17 @@ public class UIManager : MonoBehaviour
     private Sprite[] _lives;
     [SerializeField]
     private Image _livesimg;
-    
+
+    private GameManager _gm;
 
     void Start()
     {
+        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        if(_gm == null)
+        {
+            Debug.LogError("GameManager not found");
+        }
     }
 
     public void UpdateScore(int pScore)
@@ -37,6 +44,7 @@ public class UIManager : MonoBehaviour
 
     private void GameOverSequence()
     {
+        _gm.GameOver();
         _continueTxt.gameObject.SetActive(true);
         StartCoroutine(flickerRoutine());
     }
