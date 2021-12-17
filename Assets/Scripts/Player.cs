@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     //Determines speed
     [SerializeField]
     private float _speed = 5.0f;
+    private float _speedMult = 1.5f;
     [SerializeField]
     private float _offset = 1.0f;
     [SerializeField]
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private bool _tShotActive = false;
+    private bool _speedBoostActive = false;
 
     void Start()
     {
@@ -42,8 +44,8 @@ public class Player : MonoBehaviour
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.right * hInput * _speed * Time.deltaTime);
-        transform.Translate(Vector3.up * vInput * _speed * Time.deltaTime);
+            transform.Translate(Vector3.right * hInput * _speed * Time.deltaTime);
+            transform.Translate(Vector3.up * vInput * _speed * Time.deltaTime);
 
         //1 line version of below 2 lines
         //transform.Translate(new Vector3(hInput, vInput, 0)* _speed * Time.deltaTime);
@@ -103,6 +105,26 @@ public class Player : MonoBehaviour
         { 
             yield return new WaitForSeconds(5.0f);
             _tShotActive = false;
+        }
+    }
+
+    public void SpeedBoostActive()
+    {
+        if(!_speedBoostActive)
+        {
+            _speedBoostActive = true;
+            _speed *= _speedMult;
+            StartCoroutine(SpeedBoostPDown());
+        }
+    }
+
+    IEnumerator SpeedBoostPDown()
+    {
+        while(_speedBoostActive)
+        {
+            yield return new WaitForSeconds(5.0f);           
+            _speedBoostActive = false;
+            _speed /= _speedMult;
         }
     }
 }
