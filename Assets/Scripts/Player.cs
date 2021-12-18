@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     private GameObject[] _engines;
 
     [SerializeField]
+    private AudioClip _lasSound;
+    private AudioSource _audioSrc;
+
+    [SerializeField]
     private int _health = 3;
     private int _score = 0;
 
@@ -38,6 +42,20 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _audioSrc = GetComponent<AudioSource>();
+
+        if(_ui == null)
+        {
+            Debug.LogError("404 UI Manager");
+        }
+
+        if(_audioSrc == null)
+        {
+            Debug.LogError("404 Player Audio Source");
+        } else
+        {
+            _audioSrc.clip = _lasSound;
+        }
     }
 
     void Update()
@@ -89,6 +107,8 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab,
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
         }
+
+        _audioSrc.Play();
     }
 
     public void Damage()

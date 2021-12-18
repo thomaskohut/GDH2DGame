@@ -9,20 +9,28 @@ public class Enemy : MonoBehaviour
     private Player _plr;
     private Animator _anim;
 
+    private AudioSource _audiosrc;
+
     // Start is called before the first frame update
     void Start()
     {
         _plr = GameObject.Find("Player").GetComponent<Player>();
         _anim = GetComponent<Animator>();
+        _audiosrc = GetComponent<AudioSource>();
+
+        if(_audiosrc == null)
+        {
+            Debug.LogError("404 Enemy Audio Source");
+        }
 
         if (_plr == null)
         {
-            Debug.LogError("Player not found");
+            Debug.LogError("404 Player");
         }
 
         if(_anim == null)
         {
-            Debug.LogError("Animator not found");
+            Debug.LogError("404 Animator");
         }
     }
 
@@ -46,6 +54,7 @@ public class Enemy : MonoBehaviour
         _anim.SetTrigger("OnEnemyDeath");
         _spd = 0f;
         GetComponent<Collider2D>().enabled = false;
+        _audiosrc.Play();
         Destroy(this.gameObject, 2.8f);
 
         if (other.tag == "Player")
