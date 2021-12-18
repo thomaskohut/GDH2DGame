@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spd: 4
+  eLasPrefab: {fileID: 2570936923606117219, guid: a0682d615acc4094caf41a057484c9e5, type: 3}
 --- !u!50 &3959795014834602168
 Rigidbody2D:
   serializedVersion: 4

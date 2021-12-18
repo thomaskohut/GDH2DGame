@@ -13,13 +13,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _rof = 0.2f;
     private float _cd = 0.0f;
-
+    [SerializeField]
+    private float _sHealthDisp;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
     private GameObject _tShotPrefab;
     [SerializeField]
     private GameObject _shield;
+    [SerializeField]
+    private GameObject _expl;
     [SerializeField]
     private GameObject[] _engines;
 
@@ -29,6 +32,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int _health = 3;
+    [SerializeField]
+    private int _shieldHealth;   
     private int _score = 0;
 
     private UIManager _ui;
@@ -115,8 +120,17 @@ public class Player : MonoBehaviour
     {
         if (_shieldActive)
         {
-            _shieldActive = false;
-            _shield.SetActive(false);
+            if (_shieldHealth >= 1)
+            {
+                _sHealthDisp *= 0.5f;
+                _shieldHealth--;
+                _shield.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, _sHealthDisp);
+            }
+            else
+            {
+                _shieldActive = false;
+                _shield.SetActive(false);
+            }
             return;
         }
       
@@ -134,9 +148,10 @@ public class Player : MonoBehaviour
             _engines[0].SetActive(true);
         }
 
-            if (_health <= 0)
+        if (_health <= 0)
         {
             Destroy(this.gameObject);
+            Instantiate(_expl, transform.position, Quaternion.identity);
         }
     }
 
@@ -182,6 +197,9 @@ public class Player : MonoBehaviour
     {
         if (!_shieldActive)
         {
+            _shieldHealth = 3;
+            _sHealthDisp = 1f;
+            _shield.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, _sHealthDisp);
             _shieldActive = true;
             _shield.SetActive(true);
         }

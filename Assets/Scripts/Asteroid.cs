@@ -35,7 +35,8 @@ public class Asteroid : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().enabled = false;
             Instantiate(_expl, transform.position, Quaternion.identity);
-            
+
+            Destroy(GetComponent<Collider2D>());
             Destroy(other.gameObject);
             Destroy(this.gameObject, 2.8f);
 

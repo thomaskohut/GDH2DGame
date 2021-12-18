@@ -7,30 +7,68 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private float _speed = 10f;
 
-    //Different movement patterns
-    //[SerializeField]
-    //private int _div = 3;
+    private bool _isELas = false;
 
     void Update()
     {
+        if(!_isELas)
+        {
+            MoveUp();
+        } else
+        {
+            MoveDown();
+        }
+    }
+
+    void MoveUp()
+    {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-
-        //Vector3 sinmt = new Vector3(Mathf.Sin(Time.fixedTime), _speed, 0);
-        //transform.Translate(sinmt * Time.deltaTime);
-
-
-        //Vector3 circlemt = new Vector3(Mathf.Sin(Time.fixedTime), Mathf.Cos(Time.fixedTime), 0);
-        //transform.Translate(circlemt * (Time.deltaTime*_div));
 
 
         if (transform.position.y > 7.55)
-        {           
-            if(transform.parent != null)
+        {
+            if (transform.parent != null)
             {
                 Destroy(transform.parent.gameObject);
             }
             Destroy(gameObject);
         }
+    }
+
+    void MoveDown()
+    {
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+
+
+        if (transform.position.y < -7.55)
+        {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player" && _isELas == true)
+        {
+            Player plr = other.GetComponent<Player>();
+            if(plr != null)
+            {
+                plr.Damage();
+                Destroy(this.gameObject);
+            } else
+            {
+                Debug.LogError("404 Player");
+            }
+        }
+    }
+
+    public void AssignELAs()
+    {
+        _isELas = true;
     }
 }
 

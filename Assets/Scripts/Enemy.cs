@@ -6,12 +6,18 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private float _spd = 4.0f;
-    private Player _plr;
-    private Animator _anim;
+    private float _fireRate = 3;
+    private float _canFire = -1;
+
+    [SerializeField]
+    private GameObject eLasPrefab;
 
     private AudioSource _audiosrc;
 
-    // Start is called before the first frame update
+
+    private Player _plr;
+    private Animator _anim;
+
     void Start()
     {
         _plr = GameObject.Find("Player").GetComponent<Player>();
@@ -37,6 +43,23 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        EMovement();
+
+        if (Time.time > _canFire)
+        {
+            _fireRate = Random.Range(3.0f, 7.0f);
+            _canFire = Time.time + _fireRate;
+            GameObject eLas = Instantiate(eLasPrefab, transform.position, Quaternion.identity);
+            Laser[] lasers = eLas.GetComponentsInChildren<Laser>();
+            for(int x = 0; x < lasers.Length; x++)
+            {
+                lasers[x].AssignELAs();
+            }
+        }
+    }
+
+    void EMovement()
+    {
         transform.Translate(Vector3.down * _spd * Time.deltaTime);
         Wrap();
     }
@@ -55,6 +78,7 @@ public class Enemy : MonoBehaviour
         _spd = 0f;
         GetComponent<Collider2D>().enabled = false;
         _audiosrc.Play();
+        Destroy(GetComponent<Collider2D>());
         Destroy(this.gameObject, 2.8f);
 
         if (other.tag == "Player")
