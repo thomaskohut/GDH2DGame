@@ -73,12 +73,16 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        _anim.SetTrigger("OnEnemyDeath");
-        _spd = 0f;
-        GetComponent<Collider2D>().enabled = false;
-        _audiosrc.Play();
-        Destroy(GetComponent<Collider2D>());
-        Destroy(this.gameObject, 2.8f);
+        if (other.tag == "ELaser")
+        {
+        } else {
+            _anim.SetTrigger("OnEnemyDeath");
+            _spd = 0f;
+            GetComponent<Collider2D>().enabled = false;
+            _audiosrc.Play();
+            Destroy(GetComponent<Collider2D>());
+            Destroy(this.gameObject, 2.8f);
+        }
 
         if (other.tag == "Player")
         {

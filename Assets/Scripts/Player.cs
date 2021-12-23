@@ -132,7 +132,6 @@ public class Player : MonoBehaviour
 
         _ammo--;
         _ui.UpdateAmmo(_ammo);
-
         _audioSrc.Play();
     }
 
