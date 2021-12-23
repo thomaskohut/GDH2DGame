@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class RailGunPowerup : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Player plr;
     void Start()
     {
-        
+        plr = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0f, 0f, -2f);
+        transform.Translate(plr.transform.position.x, plr.transform.position.y + 1, plr.transform.position.z);
     }
 }

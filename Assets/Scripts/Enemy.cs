@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
 
     private AudioSource _audiosrc;
 
-
     private Player _plr;
     private Animator _anim;
 
@@ -87,7 +86,7 @@ public class Enemy : MonoBehaviour
             if (_plr != null)
             {
                 _plr.Damage();
-            }        
+            }
         }
 
         if (other.tag == "Laser")
@@ -96,7 +95,9 @@ public class Enemy : MonoBehaviour
             {
                 _plr.AddScore();
             }
-            Destroy(other.gameObject);
+                Destroy(other.gameObject);
         }
+
+        if (other.tag == "Powerups"){}
     }
 }

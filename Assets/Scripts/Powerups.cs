@@ -6,7 +6,7 @@ public class Powerups : MonoBehaviour
 {
     private float _spd = 3f;
     [SerializeField]
-    private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield
+    private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield, 3 = railgun
 
     [SerializeField]
     private AudioClip _clip;
@@ -40,6 +40,9 @@ public class Powerups : MonoBehaviour
                         break;
                     case 2:
                         plr.ShieldActive();
+                        break;
+                    case 3:
+                        plr.RailgunActive();
                         break;
                     default:
                         Debug.LogError("Poweup not collected.");

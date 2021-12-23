@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _expl;
     [SerializeField]
+    private GameObject _railLasPrefab;
+    private GameObject _raillas;
+    [SerializeField]
     private GameObject[] _engines;
 
     [SerializeField]
@@ -40,10 +43,14 @@ public class Player : MonoBehaviour
 
     private UIManager _ui;
 
+
     [SerializeField]
     private bool _tShotActive = false;
     private bool _speedBoostActive = false;
     private bool _shieldActive = false;
+
+    [SerializeField]
+    private bool _railgunActive = false;
 
     void Start()
     {
@@ -95,7 +102,7 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(-1 * transform.position.x, transform.position.y, transform.position.z);
         }
 
-        if (transform.position.y < -7.56f || transform.position.y > 7.56f)
+        if (transform.position.y < -6.56f || transform.position.y > 7.56f)
         {
             transform.position = new Vector3(transform.position.x, -1 * transform.position.y, transform.position.z);
         }
@@ -104,16 +111,24 @@ public class Player : MonoBehaviour
     void Fire()
     {
         _cd = Time.time + _rof;
-
+        _offset = 1f;
         if (_tShotActive)
-        {
+        {   
             Instantiate(_tShotPrefab,
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+        } else if (_railgunActive)
+        {
+            _offset = 5.75f;
+            _raillas = Instantiate(_railLasPrefab,
+                new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
+            StartCoroutine(RailgunPDown());
+            StartCoroutine(RShot(_raillas));
         } else
         {
             Instantiate(_laserPrefab,
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
         }
+
 
         _ammo--;
         _ui.UpdateAmmo(_ammo);
@@ -208,6 +223,31 @@ public class Player : MonoBehaviour
             _shieldActive = true;
             _shield.SetActive(true);
         }
+    }
+
+    public void RailgunActive()
+    {
+        if(!_railgunActive)
+        {
+            _railgunActive = true;
+            //StartCoroutine(RailgunPDown());
+        }
+    }
+
+    public bool RailGunCheck()
+    {
+        return _railgunActive;
+    }
+    IEnumerator RShot(GameObject x)
+    {
+        yield return new WaitForSeconds(0.05f);
+            Destroy(x.gameObject);
+    }
+
+    IEnumerator RailgunPDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _railgunActive = false;
     }
 
     public void AddScore()

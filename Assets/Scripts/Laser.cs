@@ -52,10 +52,10 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player" && _isELas == true)
+        if (other.tag == "Player" && _isELas == true)
         {
             Player plr = other.GetComponent<Player>();
-            if(plr != null)
+            if (plr != null)
             {
                 plr.Damage();
                 Destroy(this.gameObject);
