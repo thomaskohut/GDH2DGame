@@ -12,9 +12,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _continueTxt;
     [SerializeField]
+    private Text _ammoTxt;
+    [SerializeField]
     private Sprite[] _lives;
     [SerializeField]
     private Image _livesimg;
+
 
     private GameManager _gm;
 
@@ -25,6 +28,14 @@ public class UIManager : MonoBehaviour
         if(_gm == null)
         {
             Debug.LogError("GameManager not found");
+        }
+    }
+
+    public void UpdateAmmo(int pAmmo)
+    {
+        if (pAmmo >= 0)
+        {
+            _ammoTxt.text = "Ammo: " + pAmmo;
         }
     }
 

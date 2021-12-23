@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     private int _shieldHealth;   
     private int _score = 0;
 
+    private int _ammo = 15;
+
     private UIManager _ui;
 
     [SerializeField]
@@ -67,7 +69,7 @@ public class Player : MonoBehaviour
     {
         Movement();
         Wrap();
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _cd)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _cd && _ammo > 0)
         {
             Fire();
         }
@@ -112,6 +114,9 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab,
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
         }
+
+        _ammo--;
+        _ui.UpdateAmmo(_ammo);
 
         _audioSrc.Play();
     }
