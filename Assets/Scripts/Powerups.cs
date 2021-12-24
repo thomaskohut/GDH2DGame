@@ -47,6 +47,9 @@ public class Powerups : MonoBehaviour
                     case 4:
                         plr.AmmoResupply();
                         break;
+                    case 5:
+                        plr.AddHealth();
+                        break;
                     default:
                         Debug.LogError("Poweup not collected.");
                         break;

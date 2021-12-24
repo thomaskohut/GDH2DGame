@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(-1 * transform.position.x, transform.position.y, transform.position.z);
         }
 
-        if (transform.position.y < -6.56f || transform.position.y > 7.56f)
+        if (transform.position.y < -7.56f || transform.position.y > 7.56f)
         {
             transform.position = new Vector3(transform.position.x, -1 * transform.position.y, transform.position.z);
         }
@@ -263,5 +263,22 @@ public class Player : MonoBehaviour
         }
 
         _ui.UpdateAmmo(_ammo);
+    }
+
+    public void AddHealth()
+    {
+        if (_health < 3 && _health > 0)
+        {
+            _health++;
+            _ui.UpdateLives(_health);
+        }
+
+        if(_engines[0].activeInHierarchy)
+        {
+            _engines[0].SetActive(false);
+        } else if(_engines[1].activeInHierarchy)
+        {
+            _engines[1].SetActive(false);
+        }
     }
 }
