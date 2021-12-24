@@ -84,6 +84,17 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
+        if (Input.GetKey(KeyCode.LeftShift) && !_speedBoostActive)
+        {
+            _speed = 6.25f;
+            Debug.Log("boost active");
+        }
+        else if (_speedBoostActive) { } else
+        {
+            _speed = 5f;
+            Debug.Log("boost gone");
+        }
+
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
 
