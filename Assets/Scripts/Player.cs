@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     private int _score = 0;
 
     private int _ammo = 15;
+    private float _fuel = 600;
+    private float _fuelmax = 600;
 
     private UIManager _ui;
 
@@ -84,9 +86,11 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && !_speedBoostActive)
+        if (Input.GetKey(KeyCode.LeftShift) && !_speedBoostActive && _fuel >= 1)
         {
             _speed = 6.25f;
+            _fuel--;
+            _ui.UpdateFuel(_fuel, _fuelmax);
             Debug.Log("boost active");
         }
         else if (_speedBoostActive) { } else

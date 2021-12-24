@@ -14,9 +14,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _ammoTxt;
     [SerializeField]
+    private Text _fuelTxt;
+    [SerializeField]
     private Sprite[] _lives;
     [SerializeField]
     private Image _livesimg;
+    
 
 
     private GameManager _gm;
@@ -51,6 +54,13 @@ public class UIManager : MonoBehaviour
         {
             GameOverSequence();
         }
+    }
+
+    public void UpdateFuel(float fuel, float fuelMax)
+    {
+        float psum = (fuel / fuelMax) * 100;
+        _fuelTxt.text = "Fuel: " + (int) psum + "%";
+
     }
 
     private void GameOverSequence()
