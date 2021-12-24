@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     {
         if (pAmmo >= 0)
         {
-            _ammoTxt.text = "Ammo: " + pAmmo;
+            _ammoTxt.text = "Ammo: " + pAmmo + "/15";
         }
     }
 

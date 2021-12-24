@@ -44,6 +44,9 @@ public class Powerups : MonoBehaviour
                     case 3:
                         plr.RailgunActive();
                         break;
+                    case 4:
+                        plr.AmmoResupply();
+                        break;
                     default:
                         Debug.LogError("Poweup not collected.");
                         break;

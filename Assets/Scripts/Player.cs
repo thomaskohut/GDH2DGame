@@ -233,10 +233,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public bool RailGunCheck()
-    {
-        return _railgunActive;
-    }
     IEnumerator RShot(GameObject x)
     {
         yield return new WaitForSeconds(0.05f);
@@ -253,5 +249,19 @@ public class Player : MonoBehaviour
     {
         _score += 10;
         _ui.UpdateScore(_score);
+    }
+
+    public void AmmoResupply()
+    {
+        if (_ammo <= 5)
+        {
+            _ammo += 10;
+        }
+        else
+        {
+            _ammo = 15;
+        }
+
+        _ui.UpdateAmmo(_ammo);
     }
 }
