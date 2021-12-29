@@ -42,6 +42,11 @@ public class Powerups : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag == "ELaser")
+        {
+            Destroy(this.gameObject);
+        }
+
         if(other.tag == "Player") {
             Player plr = other.transform.GetComponent<Player>();
 

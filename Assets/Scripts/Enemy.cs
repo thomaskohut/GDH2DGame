@@ -8,10 +8,15 @@ public class Enemy : MonoBehaviour
     private float _spd = 4.0f;
     private float _fireRate = 3;
     private float _canFire = -1;
+    private float _eshieldactivate;
+    private int _eShieldHealth;
+    private bool _eShieldActive = false;
     private bool _isAlive = true;
 
     [SerializeField]
     private GameObject eLasPrefab;
+    [SerializeField]
+    private GameObject _eshield;
     private AudioSource _audiosrc;
 
     private Player _plr;
@@ -23,7 +28,7 @@ public class Enemy : MonoBehaviour
         _anim = GetComponent<Animator>();
         _audiosrc = GetComponent<AudioSource>();
 
-        if(_audiosrc == null)
+        if (_audiosrc == null)
         {
             Debug.LogError("404 Enemy Audio Source in Enemy");
         }
@@ -33,9 +38,15 @@ public class Enemy : MonoBehaviour
             Debug.LogError("404 Player in Enemy");
         }
 
-        if(_anim == null)
+        if (_anim == null)
         {
             Debug.LogError("404 Animator in Enemy");
+        }
+
+        _eshieldactivate = Random.Range(0f, 1f);
+        if (_eshieldactivate <= 0.4f)
+        {
+            EShield();
         }
     }
 
@@ -80,9 +91,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void EShield()
     {
-        if (other.tag == "ELaser" || other.tag == "Powerups") {} else {
+        if (!_eShieldActive)
+        {
+            _eShieldHealth = 1;
+            _eshield.SetActive(true);
+            _eShieldActive = true;
+        }
+    }
+
+    void EDamage()
+    {
+        if (_eShieldActive)
+        {
+            if (_eShieldHealth > 1)
+            {
+                _eShieldHealth--;
+            } else {
+                _eshield.SetActive(false);
+                _eShieldActive = false;
+            }
+            return;
+        }
             _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
             _spd = 0f;
@@ -90,7 +121,11 @@ public class Enemy : MonoBehaviour
             _audiosrc.Play();
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);
-        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "ELaser" || other.tag == "Powerups" || other.tag == "EShield") {}
 
         if (other.tag == "Player")
         {
@@ -98,16 +133,18 @@ public class Enemy : MonoBehaviour
             if (_plr != null)
             {
                 _plr.Damage();
+                EDamage();
             }
         }
 
         if (other.tag == "Laser")
         {
-            if (_plr != null)
+            if (_plr != null && !_eShieldActive)
             {
                 _plr.AddScore();
-            }
-                Destroy(other.gameObject);
+            }           
+            Destroy(other.gameObject);
+            EDamage();
         }
     }
 }
