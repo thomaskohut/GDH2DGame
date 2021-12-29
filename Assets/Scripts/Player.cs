@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
         } else if (_railgunActive)
         {
-            _offset = 5.75f;
+            _offset = 6.5f;
             _raillas = Instantiate(_railLasPrefab,
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
             StartCoroutine(RailgunPDown());

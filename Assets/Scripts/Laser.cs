@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
 
 
-        if (transform.position.y > 7.55)
+        if (transform.position.y > 7.55 && tag != "RailLaser")
         {
             if (transform.parent != null)
             {

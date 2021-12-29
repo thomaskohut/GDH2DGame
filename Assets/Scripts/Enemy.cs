@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         }
 
         _eshieldactivate = Random.Range(0f, 1f);
-        if (_eshieldactivate <= 0.4f)
+        if (_eshieldactivate <= .4f)
         {
             EShield();
         }
@@ -101,9 +101,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void EDamage()
+    void EDamage(int damagetype)
     {
-        if (_eShieldActive)
+        if (_eShieldActive && damagetype >= 1)
         {
             if (_eShieldHealth > 1)
             {
@@ -113,6 +113,11 @@ public class Enemy : MonoBehaviour
                 _eShieldActive = false;
             }
             return;
+        }
+        if(damagetype == 0)
+        {
+            _eshield.SetActive(false);
+            _eShieldActive = false;
         }
             _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
@@ -133,7 +138,7 @@ public class Enemy : MonoBehaviour
             if (_plr != null)
             {
                 _plr.Damage();
-                EDamage();
+                EDamage(1);
             }
         }
 
@@ -144,7 +149,16 @@ public class Enemy : MonoBehaviour
                 _plr.AddScore();
             }           
             Destroy(other.gameObject);
-            EDamage();
+            EDamage(1);
+        }
+
+        if (other.tag == "RailLaser")
+        {
+            if (_plr != null)
+            {
+                _plr.AddScore();
+            }
+            EDamage(0);
         }
     }
 }
