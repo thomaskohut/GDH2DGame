@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Powerups : MonoBehaviour
 {
-    private float _spd = 3f;
+    private float _spd = 0f;
     [SerializeField]
     private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield, 3 = railgun
 
@@ -51,11 +51,12 @@ public class Powerups : MonoBehaviour
                         plr.AddHealth();
                         break;
                     case 6:
-                        goto case 0;
+                        plr.Damage();
+                        break;
                     case 7:
-                        goto case 3;
+                        goto case 0;
                     case 8:
-                        goto case 4;
+                        goto case 3;
                     case 9:
                         goto case 4;
                     case 10:
@@ -63,7 +64,7 @@ public class Powerups : MonoBehaviour
                     case 11:
                         goto case 4;
                     case 12:
-                        goto case 4;
+                        goto case 6;
                     default:
                         Debug.LogError("Poweup not collected.");
                         break;

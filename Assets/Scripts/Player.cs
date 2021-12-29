@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     private float _fuelmax = 600;
 
     private UIManager _ui;
+    private SpawnManager _sm;
 
 
     [SerializeField]
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _sm = GameObject.Find("SpawnContainer").GetComponent<SpawnManager>();
         _audioSrc = GetComponent<AudioSource>();
 
         if(_ui == null)
@@ -186,6 +188,7 @@ public class Player : MonoBehaviour
         {
             Destroy(this.gameObject);
             Instantiate(_expl, transform.position, Quaternion.identity);
+            _sm.OnDeath();
         }
     }
 
