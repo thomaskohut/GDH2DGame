@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //Determines speed
+    private Vector3 _inactiveThrust = new Vector3(0.5f, 0.2f, 0f);
+    private Vector3 _activeThrust = new Vector3(1f, 1f, 0f);
     [SerializeField]
     private float _speed = 5.0f;
     private float _speedMult = 1.5f;
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour
     private GameObject _railLasPrefab;
     private GameObject _raillas;
     [SerializeField]
+    private GameObject _thruster;
+    [SerializeField]
     private GameObject[] _engines;
 
     [SerializeField]
@@ -46,13 +49,9 @@ public class Player : MonoBehaviour
     private UIManager _ui;
     private SpawnManager _sm;
 
-
-    [SerializeField]
     private bool _tShotActive = false;
     private bool _speedBoostActive = false;
     private bool _shieldActive = false;
-
-    [SerializeField]
     private bool _railgunActive = false;
 
     void Start()
@@ -93,12 +92,14 @@ public class Player : MonoBehaviour
             _speed = 6.25f;
             _fuel--;
             _ui.UpdateFuel(_fuel, _fuelmax);
-            Debug.Log("boost active");
+            _thruster.transform.position = new Vector3(transform.position.x, transform.position.y -1.65f, transform.position.z);
+            _thruster.transform.localScale = _activeThrust;
         }
         else if (_speedBoostActive) { } else
         {
             _speed = 5f;
-            Debug.Log("boost gone");
+            _thruster.transform.localScale = _inactiveThrust;
+            _thruster.transform.position = new Vector3(transform.position.x, transform.position.y -0.95f, transform.position.z);                        
         }
 
         float hInput = Input.GetAxis("Horizontal");
