@@ -164,14 +164,13 @@ MonoBehaviour:
   _shield: {fileID: 1352459327}
   _expl: {fileID: 5874417995657589476, guid: e82e04bbfd7f12f40a03c141fb2bf8a6, type: 3}
   _railLasPrefab: {fileID: 6309128924818356143, guid: 893f3ef6f7b2f4249b1c9a12237980ae, type: 3}
+  _thruster: {fileID: 2086510241}
   _engines:
   - {fileID: 1539625559}
   - {fileID: 118857932}
   _lasSound: {fileID: 8300000, guid: 69599cc8674a5a945b7c1a1a5afa44b4, type: 3}
   _health: 3
   _shieldHealth: 0
-  _tShotActive: 0
-  _railgunActive: 0
 --- !u!212 &38358109
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1552,7 +1551,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 119, y: -125}
+  m_AnchoredPosition: {x: 119, y: -120}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1913347717
@@ -1736,7 +1735,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press R to restart
+  m_Text: 'Press R to restart
+
+    Press M to return to the menu
+
+    Press Escape
+    to quit'
 --- !u!222 &1949948796
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1761,8 +1765,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 300, y: 20}
+  m_AnchoredPosition: {x: 0, y: -72.14}
+  m_SizeDelta: {x: 500, y: 67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1967961157
 GameObject:
@@ -2010,8 +2014,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086510241}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: -3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -1.9, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 38358110}
   m_RootOrder: 1
