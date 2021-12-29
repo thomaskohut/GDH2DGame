@@ -50,6 +50,20 @@ public class Powerups : MonoBehaviour
                     case 5:
                         plr.AddHealth();
                         break;
+                    case 6:
+                        goto case 0;
+                    case 7:
+                        goto case 3;
+                    case 8:
+                        goto case 4;
+                    case 9:
+                        goto case 4;
+                    case 10:
+                        goto case 4;
+                    case 11:
+                        goto case 4;
+                    case 12:
+                        goto case 4;
                     default:
                         Debug.LogError("Poweup not collected.");
                         break;

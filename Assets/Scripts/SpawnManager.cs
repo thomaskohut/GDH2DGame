@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject[] _Powerup;
 
+    [SerializeField]
     private bool _spActive = false;
 
     public void StartSpawn()
