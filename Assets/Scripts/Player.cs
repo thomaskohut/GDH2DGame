@@ -64,12 +64,12 @@ public class Player : MonoBehaviour
 
         if(_ui == null)
         {
-            Debug.LogError("404 UI Manager");
+            Debug.LogError("404 UI Manager in Player");
         }
 
         if(_audioSrc == null)
         {
-            Debug.LogError("404 Player Audio Source");
+            Debug.LogError("404 Player Audio Source in Player");
         } else
         {
             _audioSrc.clip = _lasSound;
@@ -186,9 +186,9 @@ public class Player : MonoBehaviour
 
         if (_health <= 0)
         {
-            Destroy(this.gameObject);
-            Instantiate(_expl, transform.position, Quaternion.identity);
             _sm.OnDeath();
+            Destroy(this.gameObject);
+            Instantiate(_expl, transform.position, Quaternion.identity);          
         }
     }
 
@@ -287,11 +287,10 @@ public class Player : MonoBehaviour
     {
         if (_health < 3 && _health > 0)
         {
-            _health++;
-            _ui.UpdateLives(_health);
+            _health++;        
         }
-
-        if(_engines[0].activeInHierarchy)
+        _ui.UpdateLives(_health);
+        if (_engines[0].activeInHierarchy)
         {
             _engines[0].SetActive(false);
         } else if(_engines[1].activeInHierarchy)

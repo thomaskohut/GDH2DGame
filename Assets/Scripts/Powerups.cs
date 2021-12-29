@@ -4,16 +4,35 @@ using UnityEngine;
 
 public class Powerups : MonoBehaviour
 {
-    private float _spd = 0f;
+    private float _spd = 3f;
     [SerializeField]
-    private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield, 3 = railgun
-
+    private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield, 3 = railgun, 4 = ammo, 5 = health, 6 = neghealth
+    
     [SerializeField]
     private AudioClip _clip;
+    private Player _plr;
 
+    private void Start()
+    {
+        _plr = GameObject.Find("Player").GetComponent<Player>();
+
+        if (_plr == null)
+        {
+            Debug.LogError("404 Player in Powerups");
+        }
+    }
     void Update()
     {
-        transform.Translate(Vector3.down * _spd * Time.deltaTime);
+        if (Input.GetKey(KeyCode.C) && _plr.gameObject.activeInHierarchy)
+        {
+            Vector3 targPos = _plr.transform.position;
+            transform.position = (Vector3.MoveTowards(transform.position, _plr.transform.position, _spd * 2 * Time.deltaTime));
+        }
+        else
+        {
+            transform.Translate(Vector3.down * _spd * Time.deltaTime);
+        }
+        //transform.Translate(Vector3.down * _spd * Time.deltaTime);
 
         if (transform.position.y < -7.56f)
         {

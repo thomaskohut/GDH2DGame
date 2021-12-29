@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private float _spd = 4.0f;
     private float _fireRate = 3;
     private float _canFire = -1;
+    private bool _isAlive = true;
 
     [SerializeField]
     private GameObject eLasPrefab;
@@ -25,17 +26,17 @@ public class Enemy : MonoBehaviour
 
         if(_audiosrc == null)
         {
-            Debug.LogError("404 Enemy Audio Source");
+            Debug.LogError("404 Enemy Audio Source in Enemy");
         }
 
         if (_plr == null)
         {
-            Debug.LogError("404 Player");
+            Debug.LogError("404 Player in Enemy");
         }
 
         if(_anim == null)
         {
-            Debug.LogError("404 Animator");
+            Debug.LogError("404 Animator in Enemy");
         }
     }
 
@@ -44,7 +45,7 @@ public class Enemy : MonoBehaviour
     {
         EMovement();
 
-        if (Time.time > _canFire)
+        if (Time.time > _canFire && _isAlive)
         {
             _fireRate = Random.Range(3.0f, 7.0f);
             _canFire = Time.time + _fireRate;
@@ -60,22 +61,25 @@ public class Enemy : MonoBehaviour
     void EMovement()
     {
         transform.Translate(Vector3.down * _spd * Time.deltaTime);
-        Wrap();
-    }
-
-    void Wrap()
-    {
-        if(transform.position.y < -7.56)
+        //Wrap();
+        if (transform.position.y < -7.56f)
         {
-            transform.position = new Vector3(Random.Range(-9.3f,9.3f), 7.56f, 0f);
+            Destroy(this.gameObject);
         }
     }
 
+    //void Wrap()
+    //{
+    //    if(transform.position.y < -7.56)
+    //    {
+    //        transform.position = new Vector3(Random.Range(-9.3f,9.3f), 7.56f, 0f);
+    //    }
+    //}
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "ELaser")
-        {
-        } else {
+        if (other.tag == "ELaser" || other.tag == "Powerups") {} else {
+            _isAlive = false;
             _anim.SetTrigger("OnEnemyDeath");
             _spd = 0f;
             GetComponent<Collider2D>().enabled = false;
@@ -101,7 +105,5 @@ public class Enemy : MonoBehaviour
             }
                 Destroy(other.gameObject);
         }
-
-        if (other.tag == "Powerups"){}
     }
 }

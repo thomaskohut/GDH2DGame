@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,24 +13,25 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _Powerup;
 
     [SerializeField]
-    private bool _spActive = false;
+    private bool _spActive = true;
 
     public void StartSpawn()
     {
+        _spActive = true;
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnPowerUp());
     }
 
     public void OnDeath()
     {
-        _spActive = true;
+        _spActive = false;
     }
 
     //Spawns enemy every 5 seconds
     IEnumerator SpawnEnemy()
     {
         yield return new WaitForSeconds(3.5f);
-        while (!_spActive)
+        while (_spActive)
         {
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
             GameObject newEnemy = Instantiate(_enemyprefab, spawnPos, Quaternion.identity);
@@ -41,10 +43,10 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnPowerUp()
     {
         yield return new WaitForSeconds(3.5f);
-        while (!_spActive)
+        while (_spActive)
         {           
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
-            GameObject newPUp = Instantiate(_Powerup[Random.Range(6,6)], spawnPos, Quaternion.identity);
+            GameObject newPUp = Instantiate(_Powerup[Random.Range(0,12)], spawnPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(4,9));
         }
     }

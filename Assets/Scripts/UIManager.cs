@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
 
         if(_gm == null)
         {
-            Debug.LogError("GameManager not found");
+            Debug.LogError("404 GameManager in UIManager");
         }
     }
 
@@ -49,10 +49,14 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives(int currLives)
     {
-        _livesimg.sprite = _lives[currLives];
+        
         if (currLives <= 0)
         {
+            _livesimg.sprite = _lives[0];
             GameOverSequence();
+        } else
+        {
+            _livesimg.sprite = _lives[currLives];
         }
     }
 

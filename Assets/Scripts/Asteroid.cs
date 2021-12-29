@@ -19,7 +19,7 @@ public class Asteroid : MonoBehaviour
         
         if (_sm == null)
         {
-            Debug.LogError("404: SpawnManager");
+            Debug.LogError("404 SpawnManager in Asteroid");
         }
     }
 
