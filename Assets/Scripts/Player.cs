@@ -279,6 +279,13 @@ public class Player : MonoBehaviour
         {
             _ammo = 15;
         }
+        if(_ammo == 15 && _fuel <= 480)
+        {
+            _fuel += 120;
+        } else
+        {
+            _fuel = 600;
+        }
 
         _ui.UpdateAmmo(_ammo);
     }
