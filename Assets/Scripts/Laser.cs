@@ -8,6 +8,7 @@ public class Laser : MonoBehaviour
     private float _speed = 10f;
 
     private bool _isELas = false;
+    private bool _isRELas = false;
 
     void Update()
     {
@@ -52,7 +53,7 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && _isELas == true)
+        if (other.tag == "Player" && (_isELas|| _isRELas))
         {
             Player plr = other.GetComponent<Player>();
             if (plr != null)
@@ -69,6 +70,11 @@ public class Laser : MonoBehaviour
     public void AssignELAs()
     {
         _isELas = true;
+    }
+
+    public void AssignRELas()
+    {
+        _isRELas = true;
     }
 }
 

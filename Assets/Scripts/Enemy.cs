@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private GameObject eLasPrefab;
-
     private AudioSource _audiosrc;
 
     private Player _plr;
@@ -44,16 +43,29 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         EMovement();
+        EFire();
 
+    }
+
+    void EFire()
+    {
         if (Time.time > _canFire && _isAlive)
         {
+
             _fireRate = Random.Range(3.0f, 7.0f);
             _canFire = Time.time + _fireRate;
-            GameObject eLas = Instantiate(eLasPrefab, transform.position, Quaternion.identity);
-            Laser[] lasers = eLas.GetComponentsInChildren<Laser>();
-            for(int x = 0; x < lasers.Length; x++)
+            GameObject _eLas = Instantiate(eLasPrefab, transform.position, Quaternion.identity);
+            Laser[] lasers = _eLas.GetComponentsInChildren<Laser>();
+            for (int x = 0; x < lasers.Length; x++)
             {
-                lasers[x].AssignELAs();
+                if (_plr.transform.position.y > transform.position.y)
+                {
+                    lasers[x].AssignRELas();
+                }
+                else
+                {
+                    lasers[x].AssignELAs();
+                }
             }
         }
     }
@@ -61,20 +73,12 @@ public class Enemy : MonoBehaviour
     void EMovement()
     {
         transform.Translate(Vector3.down * _spd * Time.deltaTime);
-        //Wrap();
+
         if (transform.position.y < -7.56f)
         {
             Destroy(this.gameObject);
         }
     }
-
-    //void Wrap()
-    //{
-    //    if(transform.position.y < -7.56)
-    //    {
-    //        transform.position = new Vector3(Random.Range(-9.3f,9.3f), 7.56f, 0f);
-    //    }
-    //}
 
     void OnTriggerEnter2D(Collider2D other)
     {
