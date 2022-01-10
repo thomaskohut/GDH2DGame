@@ -8,6 +8,8 @@ TagManager:
   - Powerups
   - PostProcessing
   - ELaser
+  - EShield
+  - RailLaser
   layers:
   - Default
   - TransparentFX
