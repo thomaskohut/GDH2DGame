@@ -19,7 +19,8 @@ public class UIManager : MonoBehaviour
     private Sprite[] _lives;
     [SerializeField]
     private Image _livesimg;
-    
+    [SerializeField]
+    private Text _wavetxt;
 
 
     private GameManager _gm;
@@ -45,6 +46,11 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int pScore)
     {
         _scoreText.text = "Score: " + pScore;
+    }
+
+    public void UpdateWave(int wavenum)
+    {
+        _wavetxt.text = "Wave: " + wavenum;
     }
 
     public void UpdateLives(int currLives)
