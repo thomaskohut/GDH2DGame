@@ -142,7 +142,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (other.tag == "Laser")
+        if (other.tag == "Laser" || other.tag == "HomingLaser")
         {
             if (_plr != null && !_eShieldActive)
             {

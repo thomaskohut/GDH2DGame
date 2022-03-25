@@ -6,7 +6,7 @@ public class Powerups : MonoBehaviour
 {
     private float _spd = 3f;
     [SerializeField]
-    private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield, 3 = railgun, 4 = ammo, 5 = health, 6 = neghealth
+    private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = shield, 3 = railgun, 4 = ammo, 5 = health, 6 = neghealth, 7 = homing
     
     [SerializeField]
     private AudioClip _clip;
@@ -78,17 +78,34 @@ public class Powerups : MonoBehaviour
                         plr.Damage();
                         break;
                     case 7:
-                        goto case 0;
+                        plr.HomingActive();
+                        break;
                     case 8:
-                        goto case 3;
+                        goto case 0;
                     case 9:
-                        goto case 4;
+                        goto case 3;
                     case 10:
                         goto case 4;
                     case 11:
                         goto case 4;
                     case 12:
+                        goto case 4;
+                    case 13:
                         goto case 6;
+                    case 14:
+                        goto case 7;
+                    case 15:
+                        goto case 7;
+                    case 16:
+                        goto case 7;
+                    case 17:
+                        goto case 7;
+                    case 18:
+                        goto case 7;
+                    case 19:
+                        goto case 7;
+                    case 20:
+                        goto case 7;
                     default:
                         Debug.LogError("Poweup not collected.");
                         break;

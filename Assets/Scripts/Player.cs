@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     private GameObject _railLasPrefab;
     private GameObject _raillas;
     [SerializeField]
+    private GameObject _hominglas;
+    [SerializeField]
     private GameObject _thruster;
     [SerializeField]
     private GameObject[] _engines;
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
     private bool _speedBoostActive = false;
     private bool _shieldActive = false;
     private bool _railgunActive = false;
+    private bool _homingActive = false;
 
     void Start()
     {
@@ -141,6 +144,11 @@ public class Player : MonoBehaviour
                 new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
             StartCoroutine(RailgunPDown());
             StartCoroutine(RShot(_raillas));
+        } else if (_homingActive)
+        {
+            StartCoroutine(HomingPDown());
+            Instantiate(_hominglas,
+                new Vector3(transform.position.x, transform.position.y + _offset, transform.position.z), Quaternion.identity);
         } else
         {
             Instantiate(_laserPrefab,
@@ -190,6 +198,23 @@ public class Player : MonoBehaviour
             _sm.OnDeath();
             Destroy(this.gameObject);
             Instantiate(_expl, transform.position, Quaternion.identity);          
+        }
+    }
+
+    public void HomingActive()
+    {
+        if (!_homingActive)
+        {
+            _homingActive = true;
+        }
+    }
+
+    IEnumerator HomingPDown()
+    {
+        while(_homingActive)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _homingActive = false;
         }
     }
 

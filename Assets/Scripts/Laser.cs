@@ -10,11 +10,16 @@ public class Laser : MonoBehaviour
     private bool _isELas = false;
     private bool _isRELas = false;
 
+    private GameObject _targ;
+
     void Update()
     {
-        if(!_isELas)
+        if(!_isELas && tag != "HomingLaser")
         {
             MoveUp();
+        } else if (tag == "HomingLaser")
+        {
+            StartCoroutine(HomingMove());
         } else
         {
             MoveDown();
@@ -24,8 +29,7 @@ public class Laser : MonoBehaviour
     void MoveUp()
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-
-
+        
         if (transform.position.y > 7.55 && tag != "RailLaser")
         {
             if (transform.parent != null)
@@ -34,6 +38,62 @@ public class Laser : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator HomingMove()
+    {
+        float spd = 5f;
+        Vector3 targPos = new Vector3(0f, 8f, 0f); ;
+        while ((transform.position.y < 7.55 || transform.position.y > -7.55))
+        {
+
+            if (_targ == null)
+            {
+                print("hello");
+                _targ = FindTarg(gameObject);
+                Vector3.MoveTowards(transform.position, targPos, spd * Time.deltaTime);
+            }
+            else if (targPos == transform.position)
+            {
+                print("b");
+                Vector3.MoveTowards(transform.position, new Vector3(0, 8f, 0), spd * Time.deltaTime);
+            } else
+            {
+                print("c");
+                targPos = _targ.transform.position;
+                transform.position = Vector3.MoveTowards(transform.position, targPos, spd * Time.deltaTime);
+            }
+            yield return new WaitForSeconds(.2f);
+        }
+        Destroy(gameObject);
+    }
+
+    private GameObject FindTarg(GameObject oldtarg)
+    {
+        float dist = Mathf.Infinity;
+        Vector3 currpos = transform.position;
+
+        GameObject retval = null;
+        GameObject[] eList = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if (eList.Length <= 0)
+        {
+            print("B");
+            return null;
+        }
+
+        foreach (GameObject go in eList)
+        {
+            Vector3 posdist = go.transform.position - currpos;
+            float currdist = posdist.sqrMagnitude;
+
+            if(currdist < dist && go != oldtarg) 
+            {
+                retval = go;
+                dist = currdist;
+            }
+        }
+        return retval;
     }
 
     void MoveDown()
@@ -65,6 +125,12 @@ public class Laser : MonoBehaviour
                 Debug.LogError("404 Player");
             }
         }
+        /**
+        if (tag == "HomingLaser" && (other.tag != "Player" || other.tag == "Powerups"))
+        {
+            Destroy(this.gameObject);
+        }
+    */
     }
 
     public void AssignELAs()

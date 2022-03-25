@@ -10,6 +10,7 @@ TagManager:
   - ELaser
   - EShield
   - RailLaser
+  - Enemy
   layers:
   - Default
   - TransparentFX
