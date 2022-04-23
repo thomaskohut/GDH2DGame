@@ -289,9 +289,9 @@ public class Player : MonoBehaviour
         _railgunActive = false;
     }
 
-    public void AddScore()
+    public void AddScore(int num)
     {
-        _score += 10;
+        _score += num;
         _ui.UpdateScore(_score);
     }
 

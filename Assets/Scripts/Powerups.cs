@@ -94,18 +94,6 @@ public class Powerups : MonoBehaviour
                         goto case 6;
                     case 14:
                         goto case 7;
-                    case 15:
-                        goto case 7;
-                    case 16:
-                        goto case 7;
-                    case 17:
-                        goto case 7;
-                    case 18:
-                        goto case 7;
-                    case 19:
-                        goto case 7;
-                    case 20:
-                        goto case 7;
                     default:
                         Debug.LogError("Poweup not collected.");
                         break;

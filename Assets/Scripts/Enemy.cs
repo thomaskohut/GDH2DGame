@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
             Laser[] lasers = _eLas.GetComponentsInChildren<Laser>();
             for (int x = 0; x < lasers.Length; x++)
             {
-                if (_plr.transform.position.y > transform.position.y)
+                if (_plr.transform.position.y > transform.position.y && _plr != null)
                 {
                     lasers[x].AssignRELas();
                 }
@@ -146,7 +146,7 @@ public class Enemy : MonoBehaviour
         {
             if (_plr != null && !_eShieldActive)
             {
-                _plr.AddScore();
+                _plr.AddScore(10);
             }           
             Destroy(other.gameObject);
             EDamage(1);
@@ -156,7 +156,7 @@ public class Enemy : MonoBehaviour
         {
             if (_plr != null)
             {
-                _plr.AddScore();
+                _plr.AddScore(10);
             }
             EDamage(0);
         }

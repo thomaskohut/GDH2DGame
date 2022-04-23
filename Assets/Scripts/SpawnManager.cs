@@ -8,6 +8,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyprefab;
     [SerializeField]
+    private GameObject _astPrefab;
+    [SerializeField]
     private GameObject[] _Powerup;
 
     [SerializeField]
@@ -46,13 +48,33 @@ public class SpawnManager : MonoBehaviour
         _spActive = false;
     }
 
+    public int GetWave()
+    {
+        return _wave;
+    }
+
     private void NewWave(int wavenum)
     {
+        if (AsteroidFieldChance() >= 5)
+        {
+            StartCoroutine(SpawnAsteroid());
+            _eleft = 5 * wavenum + 5;
+        }
+        else
+        {
+            _eleft = 5 * wavenum;
+        }
         _wave = wavenum;
-        _eleft = 5 * wavenum;
         _ui.UpdateWave(_wave);
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnPowerUp());
+
+    }
+
+    //Returns random int between 0 and 10.
+    private int AsteroidFieldChance()
+    {
+        return Random.Range(0, 11);
     }
 
     //Spawns enemy every 5 seconds
@@ -78,13 +100,35 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    //Spawns Asteroid every 3 seconds
+    IEnumerator SpawnAsteroid()
+    {
+        yield return new WaitForSeconds(3.5f);
+        while (_spActive && _eleft >= 0)
+        {
+            if (_eleft <= 0)
+            {
+                StopCoroutine(SpawnAsteroid());
+            }
+            else
+            {
+                Vector3 spawnPos = new Vector3(Random.Range(-12f, 0f), 7.56f, 0);
+                GameObject newEnemy = Instantiate(_astPrefab, spawnPos, Quaternion.identity);
+                newEnemy.transform.parent = _eContainer.transform;
+                _eleft--;
+                yield return new WaitForSeconds(3.0f);
+            }
+        }
+    }
+
+
     IEnumerator SpawnPowerUp()
     {
         yield return new WaitForSeconds(3.5f);
         while (_spActive && _eleft > 0)
         {           
             Vector3 spawnPos = new Vector3(Random.Range(-9f, 9f), 7.56f, 0);
-            GameObject newPUp = Instantiate(_Powerup[Random.Range(0,20)], spawnPos, Quaternion.identity);
+            GameObject newPUp = Instantiate(_Powerup[Random.Range(0,15)], spawnPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(4,9));
         }
     }

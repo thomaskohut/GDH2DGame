@@ -831,6 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _eContainer: {fileID: 611838510}
   _enemyprefab: {fileID: 8256731468335505449, guid: dda9d20ae73910c4eb51d92cef380e3a, type: 3}
+  _astPrefab: {fileID: 8996458240960995697, guid: e1e4365b9f086d04b80fa277d6a8b21a, type: 3}
   _Powerup:
   - {fileID: 6575946860442517288, guid: 2832c354c2bd28444837da47b7b5251f, type: 3}
   - {fileID: 6941350702979129965, guid: a6638c698541cb44585e7fbd9a88f934, type: 3}
@@ -840,18 +841,12 @@ MonoBehaviour:
   - {fileID: 4638365927884417212, guid: e56207094445e754c8a09f032a744957, type: 3}
   - {fileID: 7783051262696479990, guid: 2870dfe0a94195d4f8025b465b5c78ce, type: 3}
   - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
+  - {fileID: 6575946860442517288, guid: 2832c354c2bd28444837da47b7b5251f, type: 3}
   - {fileID: 3357287728974605457, guid: 27e14505ddc277d4f84e13d270627a05, type: 3}
   - {fileID: 5728876090446820077, guid: b28e64d95ef7dd24c81914d3da9db5c8, type: 3}
   - {fileID: 5728876090446820077, guid: b28e64d95ef7dd24c81914d3da9db5c8, type: 3}
   - {fileID: 5728876090446820077, guid: b28e64d95ef7dd24c81914d3da9db5c8, type: 3}
-  - {fileID: 5728876090446820077, guid: b28e64d95ef7dd24c81914d3da9db5c8, type: 3}
   - {fileID: 7783051262696479990, guid: 2870dfe0a94195d4f8025b465b5c78ce, type: 3}
-  - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
-  - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
-  - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
-  - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
-  - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
-  - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
   - {fileID: 4827196154967093645, guid: 48161d32477c20340b8fbec8425e4f83, type: 3}
   _spActive: 0
   _wave: 0
@@ -2263,5 +2258,9 @@ PrefabInstance:
       propertyPath: _rotspd
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9222510843710794868, guid: f85b66f4473b32d4f8edbb86c03ada62, type: 3}
+      propertyPath: _eContainer
+      value: 
+      objectReference: {fileID: 611838510}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f85b66f4473b32d4f8edbb86c03ada62, type: 3}
