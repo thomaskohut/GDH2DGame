@@ -171,6 +171,7 @@ MonoBehaviour:
   _spd: 4
   eLasPrefab: {fileID: 2570936923606117219, guid: a0682d615acc4094caf41a057484c9e5, type: 3}
   _eshield: {fileID: 4025195915958190011}
+  _expl: {fileID: 5874417995657589476, guid: e82e04bbfd7f12f40a03c141fb2bf8a6, type: 3}
 --- !u!50 &3959795014834602168
 Rigidbody2D:
   serializedVersion: 4

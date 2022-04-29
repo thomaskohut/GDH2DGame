@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _eshield;
     private AudioSource _audiosrc;
+    [SerializeField]
+    GameObject _expl;
 
     private Player _plr;
     private Animator _anim;
@@ -108,24 +110,28 @@ public class Enemy : MonoBehaviour
             if (_eShieldHealth > 1)
             {
                 _eShieldHealth--;
-            } else {
+            }
+            else
+            {
                 _eshield.SetActive(false);
                 _eShieldActive = false;
             }
             return;
         }
-        if(damagetype == 0)
+        if (damagetype == 0)
         {
             _eshield.SetActive(false);
             _eShieldActive = false;
         }
-            _isAlive = false;
-            _anim.SetTrigger("OnEnemyDeath");
-            _spd = 0f;
-            GetComponent<Collider2D>().enabled = false;
-            _audiosrc.Play();
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
+        _isAlive = false;
+        //_anim.SetTrigger("OnEnemyDeath");
+        _spd = 0f;
+        GetComponent<Collider2D>().enabled = false;
+        _audiosrc.Play();
+        GameObject explosion = Instantiate(_expl, transform.position, Quaternion.identity);
+        explosion.transform.localScale = transform.localScale;
+        Destroy(GetComponent<Collider2D>());
+        Destroy(this.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D other)

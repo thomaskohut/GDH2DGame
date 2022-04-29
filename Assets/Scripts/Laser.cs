@@ -49,17 +49,14 @@ public class Laser : MonoBehaviour
 
             if (_targ == null)
             {
-                print("hello");
                 _targ = FindTarg(gameObject);
-                Vector3.MoveTowards(transform.position, targPos, spd * Time.deltaTime);
+                MoveUp();
             }
             else if (targPos == transform.position)
             {
-                print("b");
                 Vector3.MoveTowards(transform.position, new Vector3(0, 8f, 0), spd * Time.deltaTime);
             } else
             {
-                print("c");
                 targPos = _targ.transform.position;
                 transform.position = Vector3.MoveTowards(transform.position, targPos, spd * Time.deltaTime);
             }
@@ -78,7 +75,6 @@ public class Laser : MonoBehaviour
 
         if (eList.Length <= 0)
         {
-            print("B");
             return null;
         }
 
@@ -111,7 +107,7 @@ public class Laser : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+   private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && (_isELas|| _isRELas))
         {
@@ -125,12 +121,6 @@ public class Laser : MonoBehaviour
                 Debug.LogError("404 Player");
             }
         }
-        /**
-        if (tag == "HomingLaser" && (other.tag != "Player" || other.tag == "Powerups"))
-        {
-            Destroy(this.gameObject);
-        }
-    */
     }
 
     public void AssignELAs()

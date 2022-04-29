@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
     {
         if (_isGameOver && Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(0); //Game scene
+            SceneManager.LoadScene("game"); //Game scene
         }
 
         if(_isGameOver && Input.GetKeyDown(KeyCode.M))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("mainmenu");
         }
 
         if(Input.GetKeyDown(KeyCode.Escape))
