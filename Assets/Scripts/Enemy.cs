@@ -52,12 +52,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         EMovement();
         EFire();
-
     }
 
     void EFire()
@@ -140,7 +138,6 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            //Player plr = other.transform.GetComponent<Player>();
             if (_plr != null)
             {
                 _plr.Damage();

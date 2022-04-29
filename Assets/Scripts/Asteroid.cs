@@ -91,7 +91,7 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Laser" || (other.tag == "Enemy" && !other.name.Equals(this.name)))
+        if (other.tag == "Laser" || other.tag == "HomingLaser" || other.tag == "RailLaser")
         {
             GetComponent<SpriteRenderer>().enabled = false;
             GameObject explosion = Instantiate(_expl, transform.position, Quaternion.identity);

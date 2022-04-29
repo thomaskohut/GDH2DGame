@@ -32,7 +32,6 @@ public class Powerups : MonoBehaviour
         {
             transform.Translate(Vector3.down * _spd * Time.deltaTime);
         }
-        //transform.Translate(Vector3.down * _spd * Time.deltaTime);
 
         if (transform.position.y < -7.56f)
         {
@@ -91,8 +90,10 @@ public class Powerups : MonoBehaviour
                     case 12:
                         goto case 4;
                     case 13:
-                        goto case 6;
+                        goto case 4;
                     case 14:
+                        goto case 6;
+                    case 15:
                         goto case 7;
                     default:
                         Debug.LogError("Poweup not collected.");

@@ -10,7 +10,6 @@ public class RailGunPowerup : MonoBehaviour
         plr = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(plr.transform.position.x, plr.transform.position.y + 1, plr.transform.position.z);
